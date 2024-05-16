@@ -1,10 +1,10 @@
-import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {PaymentService} from "../services/payment.service";
 import {PaymentModel, PaymentStatus} from "../models/PaymentModel";
 import {TableLazyLoadEvent} from "primeng/table";
 import {PaginationModel} from "../models/PaginationModel";
 import {FiltersModel} from "../models/FiltersModel";
-import {finalize} from "rxjs";
+import {finalize, Subscription} from "rxjs";
 import {HeaderModel, ModelProp} from "../models/ModelProp";
 import {Router} from "@angular/router";
 import {SharedService} from "../services/shared.service";
@@ -15,7 +15,7 @@ import {SharedService} from "../services/shared.service";
   styleUrl: './payments-list.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class PaymentsListComponent implements OnInit{
+export class PaymentsListComponent implements OnInit, OnDestroy{
 
   readonly paymentStatusKeys: string[] = Object.keys(PaymentStatus) as string[];
   payments: PaymentModel[] = [];
@@ -26,18 +26,25 @@ export class PaymentsListComponent implements OnInit{
   filters: FiltersModel = {} as FiltersModel;
   modelProps: ModelProp[] = new HeaderModel().modelProps;
 
+  private subscription: Subscription | undefined;
+
 constructor(private paymentService: PaymentService,
             private cdr: ChangeDetectorRef,
             private sharedService: SharedService,
             private router: Router) {
 }
 
-ngOnInit() {
-  let today: Date = new Date();
-  let yesterday: Date = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
-  this.dateRange = [yesterday, today];
-}
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+  ngOnInit() {
+    let today: Date = new Date();
+    let yesterday: Date = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    this.dateRange = [yesterday, today];
+  }
 
   triggerFilter() {
     this.filterTimeoutId = this.handleFilterTimeout(this.filterTimeoutId);
@@ -50,7 +57,7 @@ ngOnInit() {
     this.calculateCurrentPage(event);
     this.applyDateRangeFilters();
 
-    this.paymentService.getPayments(this.filters)
+    this.subscription = this.paymentService.getPayments(this.filters)
       .pipe(finalize(() => this.loading = false))
       .subscribe({
         next: (res: PaginationModel) => {
