@@ -1,0 +1,30 @@
+.custom-input {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  color: #495057;
+  margin-bottom: 10px;
+}
+.mdc-card {
+  margin: 16px !important;
+  max-width: 900px;
+  min-width: 350px;
+}
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title{
+  margin: 8px;
+  color: #6c56f9;
+}
+.mat-typography{
+  background-color: #f3f2f7;
+}
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

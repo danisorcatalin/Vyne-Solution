@@ -1,0 +1,25 @@
+<div class="center-content ">
+  <mat-card>
+    <div class="responsive-card login-form">
+      <mat-card-header>
+        <h1 class="title">Login</h1>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form class="login-form" (submit)="login()">
+          <mat-form-field class="input-dimension" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" [(ngModel)]="user.username" name="user.username">
+          </mat-form-field>
+
+          <mat-form-field class="input-dimension" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" [(ngModel)]="user.password" name="user.password">
+          </mat-form-field>
+
+          <button class="button-color" type="submit">Login</button>
+        </form>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,62 @@
+.responsive-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.select-dimension{
+  width: 250px;
+}
+
+.mat-mdc-card-header-text{
+  display: flex;
+  flex-direction: column;
+}
+.mdc-card {
+  margin: 16px !important;
+  max-width: 900px;
+  min-width: 350px;
+}
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-color {
+  background-color: transparent;
+  border-color: #6c56f9;
+  color: #6c56f9;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 800;
+  max-width: 120px;
+}
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+}
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title{
+  margin: 8px;
+  text-align: center;
+  color: #6c56f9;
+}
+.mat-typography{
+  background-color: #f3f2f7;
+}
